@@ -1,0 +1,74 @@
+<!-- your_template.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQI Data Visualization</title>
+    <!-- Add Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Daily AQI Over Time</h1>
+    <!-- This is where your Plotly chart for daily AQI over time will be rendered -->
+    <div id="plotly-chart"></div>
+
+    <h1>Average Monthly AQI</h1>
+    <!-- This is where your Plotly chart for average monthly AQI will be rendered -->
+    <div id="monthly-plotly-chart"></div>
+
+
+
+    <script>
+        // JavaScript code to render Plotly charts
+        // Replace this with your actual JavaScript code to generate Plotly charts
+        
+        // Example: Daily AQI Over Time
+        var daily_aqi_data = {
+            x: ['2024-01-01', '2024-01-02', '2024-01-03'], // Replace with your actual x-axis data
+            y: [50, 60, 55], // Replace with your actual y-axis data
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Daily AQI'
+        };
+
+        var daily_aqi_layout = {
+            title: 'Daily AQI Over Time'
+        };
+
+        Plotly.newPlot('plotly-chart', [daily_aqi_data], daily_aqi_layout);
+
+
+        // Example: Average Monthly AQI
+        var monthly_aqi_data = {
+            x: ['January', 'February', 'March'], // Replace with your actual x-axis data
+            y: [50, 55, 60], // Replace with your actual y-axis data
+            type: 'bar',
+            name: 'Average AQI'
+        };
+
+        var monthly_aqi_layout = {
+            title: 'Average Monthly AQI'
+        };
+
+        Plotly.newPlot('monthly-plotly-chart', [monthly_aqi_data], monthly_aqi_layout);
+
+
+        // Example: Actual vs Predicted AQI (Test Set)
+        var actual_predicted_data = {
+            x: [/* List of actual AQI values */],
+            y: [/* List of predicted AQI values */],
+            mode: 'markers',
+            type: 'scatter',
+            name: 'Actual vs Predicted'
+        };
+
+        var actual_predicted_layout = {
+            title: 'Actual vs Predicted AQI (Test Set)'
+        };
+
+        Plotly.newPlot('actual-predicted-plotly-chart', [actual_predicted_data], actual_predicted_layout);
+    </script>
+</body>
+</html>
