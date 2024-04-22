@@ -18,7 +18,9 @@
     <!-- This is where your Plotly chart for average monthly AQI will be rendered -->
     <div id="monthly-plotly-chart"></div>
 
-
+    <h1>Actual vs Predicted AQI (Test Set)</h1>
+    <!-- This is where your Plotly chart for actual vs predicted AQI will be rendered -->
+    <div id="actual-predicted-plotly-chart"></div>
 
     <script>
         // JavaScript code to render Plotly charts
@@ -57,8 +59,8 @@
 
         // Example: Actual vs Predicted AQI (Test Set)
         var actual_predicted_data = {
-            x: [/* List of actual AQI values */],
-            y: [/* List of predicted AQI values */],
+            x: [],
+            y: [],
             mode: 'markers',
             type: 'scatter',
             name: 'Actual vs Predicted'
@@ -67,6 +69,12 @@
         var actual_predicted_layout = {
             title: 'Actual vs Predicted AQI (Test Set)'
         };
+
+        // Fetch the actual vs predicted data from Django view
+        var actual_predicted_json = '{{ actual_predicted_json|safe }}';
+        var actual_predicted_data_array = JSON.parse(actual_predicted_json);
+        actual_predicted_data.x = actual_predicted_data_array.map(obj => obj.Actual);
+        actual_predicted_data.y = actual_predicted_data_array.map(obj => obj.Predicted);
 
         Plotly.newPlot('actual-predicted-plotly-chart', [actual_predicted_data], actual_predicted_layout);
     </script>

@@ -21,15 +21,31 @@ def your_view(request):
     data['Weekday'] = data['Date'].dt.weekday
     data['WeekOfYear'] = data['Date'].dt.isocalendar().week
 
-    # Your data visualization code here using Plotly or Matplotlib
+    # Select features and target
+    feature_columns = ['PM2.5', 'PM10', 'NO', 'NO2', 'NOx', 'NH3', 'CO', 'SO2', 'O3', 'Benzene', 'Toluene', 'Xylene', 'Year', 'Month', 'Day', 'Weekday', 'WeekOfYear']
+    X = data[feature_columns]
+    y = data['AQI']
 
-    # For example:
-    # fig = px.line(data, x='Date', y='AQI', title='Daily AQI Over Time')
-    # graph = fig.to_html(full_html=False)
+    # Standardizing the features
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+    # Load the trained model
+    filename = 'Random Forest_model.pkl'
+    best_model = joblib.load(filename)
+
+    # Predict AQI on the test set
+    y_pred = best_model.predict(X_scaled)
+
+    # Create a DataFrame of actual and predicted AQI
+    actual_predicted_df = pd.DataFrame({'Actual': y, 'Predicted': y_pred})
+
+    # Convert DataFrame to JSON for rendering in HTML
+    actual_predicted_json = actual_predicted_df.to_json(orient='records')
 
     context = {
-        # Pass any data or variables you want to render in the template
-        # For example, 'graph': graph
+        'actual_predicted_json': actual_predicted_json
     }
 
     return render(request, 'index.html', context)
+
